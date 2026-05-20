@@ -7,7 +7,10 @@ This deployment stage validates the underlying virtualization fabric and the har
 ## 🎛️ Section 1.1: MikroTik RouterOS Core Border Gateway (CT 200)
 * **Operational Role:** Boundary Layer-3 Routing, NAT Translation, and Traffic Shaping.
 * **Architecture Essence:** This segment acts as the automated upstream provider handler. It manages external packet network delivery, routes administrative traffic, and acts as the entry-point shield, ensuring that internal high-frequency core network frames are structurally separated from host local area loops.
-* **Subsystem Live Session Proof:** 🔗 [**Watch MikroTik RouterOS & Winbox Session Verification**](https://streamable.com/1wmmw0)
+
+### 🖥️ Subsystem Live Session Proofs:
+* 🔗 [**Watch MikroTik RouterOS & Proxmox Boot Verification**](https://streamable.com/1wmmw0)
+* 🔗 [**Watch Administrative Winbox Interface Management Session**](https://streamable.com/xzlkd0)
 
 ---
 
