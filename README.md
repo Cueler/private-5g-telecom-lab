@@ -44,6 +44,37 @@ The complete, unedited operation video tracking the entire lifecycle of the envi
 
 ---
 
+## 🗂️ Micro-Service Architecture & Containerization Breakdown (CT by CT)
+
+The ecosystem is logically segmented into specialized, low-overhead Linux Containers (LXC), separating control, security, transport, and management planes.
+
+### 🛡️ CT 100 — pfSense (Network Core Perimeter & Security Gateway)
+* **Role:** Next-Generation Firewall (NGFW), NAT Gateway, and Local Domain Router.
+* **Interfaces:** Dual-homed routing tying the external host environment (`vtnetX` / `vmbr1` WAN) directly to the isolated 5G environment (`vtnetY` / `vmbr0` LAN).
+* **Operational Essence:** Enforces strict stateful packet inspection, isolated subnet routing tables, and dynamic port forwarding. It acts as the ultimate checkpoint, allowing the emulated cellular UEs inside the internal subnet to access public internet resources safely while shielding the core layers from unauthorized host-level traffic.
+
+### 📊 CT 101 — Zabbix Server (Infrastructure Observability Engine)
+* **IP Address:** `10.0.0.163`
+* **Role:** Enterprise-grade distributed monitoring and active SNMP/Agent collection.
+* **Operational Essence:** Tracks real-time health metrics across the virtualized hypervisor. Configured with automated triggers for CPU spikes, memory starvation, and network bridge anomalies. It ensures the physical and virtualized host blocks are running well within operational parameters to guarantee zero-packet-drop handovers.
+
+### 📉 CT 102 — Database & Grafana (Advanced Metrics Visualization Data-Plane)
+* **IP Address:** `10.0.0.164`
+* **Role:** Unified analytics, multi-tenant dashboards, and timeseries data storage (`PostgreSQL`).
+* **Operational Essence:** Converts raw performance indicators harvested by the collectors into comprehensive high-level observability telemetry. Provides customized dashboards mapping network jitter, bridge throughput, container latency profiles, and resource consumption bottlenecks side-by-side.
+
+### 🧠 CT 103 — Open5GS (3GPP Release 16 Standalone 5G Core Network)
+* **IP Address:** `10.0.0.170`
+* **Role:** Centralized 5G Evolved Packet Core & Next-Generation Core Data Plane (UPF/CP).
+* **Operational Essence:** Runs native, decoupled system daemons mapping the essential 5G Network Functions (NFs). The Control Plane (AMF, SMF, AUSF, UDM) manages high-speed cryptographic subscriber profiles, authentication, and mobility states, while the ultra-lightweight User Plane Function (UPF) handles high-throughput encapsulation and routing directly at the kernel interface level.
+
+### 📡 CT 106 — UERANSIM (Next-Generation RAN & UE End-to-End Emulator)
+* **IP Address:** `10.0.0.171`
+* **Role:** 5G New Radio (NR) gNodeB Station and User Equipment Data-Plane Simulation.
+* **Operational Essence:** Emulates the complete 5G radio access network layer. It initiates native Stream Control Transmission Protocol (SCTP) connections to bind onto the AMF control plane over port `36412` (NGAP standard), creates virtual `tun` interfaces representing cellular devices, and wraps user data inside GTP-U tunnels to validate true end-to-end user-plane throughput across the core.
+
+---
+
 ## ⚠️ PROPRIETARY NOTICE & SCIENTIFIC EMBARGO
 
 > **[INTELLECTUAL PROPERTY PROTECTION]**
