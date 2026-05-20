@@ -25,23 +25,29 @@ The entire ecosystem was designed and provisioned using enterprise-grade infrast
 
 ## 🎬 Operational Evidences & Live Validations
 
-The sections below contain verified, unedited screen captures of the environment in full production state, validating the architectural stability and throughput.
+The sections below contain verified, unedited captures of the environment in full production state, validating the architectural stability, orchestration workflow, and routing.
 
-### 🖥️ Core 5G SA End-to-End Operation Showcase
-The demonstration video showcases the complete lifecycle of the private network running smoothly:
+### 🌐 Unified Infrastructure Topology (Validated with Real-time Telemetry)
+Below is the validated technical blueprint used to orchestrate this standalone private network. This topology maps the exact container IDs (CT) and internal IPs verified side-by-side with our infrastructure logs:
 
-* **00:00 - 00:04:** An active User Equipment (UE) successfully routing live data traffic (ICMP/Ping) to the public internet through the virtualized UPF data plane, achieving an average latency of **9.7ms** with **0% packet loss**.
-* **00:08 - 00:18:** Real-time **SCTP association** and NGAP setup procedure confirmation between the emulated gNB and the AMF control plane.
-* **00:27 - 00:36:** Micro-service footprint inspection via systemd, proving ultra-high resource efficiency (the core UPF engine requires only **26MB of RAM** under operational state).
-* **00:41 - 00:46:** Dynamic subscriber profile validation via the centralized WebUI management panel, followed by host-level telemetry observation on custom Grafana dashboards (`pve-cesar`).
+![Validated Infrastructure Blueprint](screenshots/5g-sa-infrastructure-final.png)
 
-*(Insert video/gif reference here after upload)*
+### 🖥️ Proxmox VE Boot Sequence & E2E Core 5G SA Operation Showcase
+The complete, unedited operation video tracking the entire lifecycle of the environment—starting from the hypervisor layer, passing through pfSense/MikroTik routing, up to the cellular communication links—is hosted securely via the link below:
+
+🔗 [**Click Here to Watch the Full Verification Video on Streamable**](https://streamable.com/h73uz5)
+
+* **00:00 - Boot & Hypervisor Layer:** Initial Proxmox VE node startup sequence (`pve-cesar`), initializing memory mappings and bringing up software-defined virtual bridges (`vmbr0` / `vmbr1`).
+* **Micro-services & Network Appliances Initialization:** Core virtual routing and perimeter security startup inside **pfSense (CT 100)** and border management alignment via **MikroTik RouterOS / Winbox (CT 200)**.
+* **5G SA Core & RAN Emulation:** Native systemd daemon verification inside **Open5GS Core (CT 103)** and successful **SCTP association (Port 36412)** setup with **UERANSIM / gNB (CT 106)**.
+* **Live Traffic Routing & Telemetry:** Subscriber profile attach validation leading to active User Equipment (UE) successfully routing live internet traffic through the virtualized UPF data plane, monitored side-by-side on custom Zabbix (`10.0.0.163`) and Grafana (`10.0.0.164`) dashboards.
 
 ---
 
 ## ⚠️ PROPRIETARY NOTICE & SCIENTIFIC EMBARGO
 
-> **[INTELLECTUAL PROPERTY PROTECTION]** > The structural blueprints, detailed network topology maps, customized routing matrices, pfSense/MikroTik rule sets, deployment YAML files, and automation source codes associated with this laboratory are currently under a strict **Scientific Embargo**.  
+> **[INTELLECTUAL PROPERTY PROTECTION]**
+> The structural blueprints, detailed network topology maps, customized routing matrices, pfSense/MikroTik rule sets, deployment YAML files, and automation source codes associated with this laboratory are currently under a strict **Scientific Embargo**.  
 > 
 > This laboratory acts as the experimental foundation for an **original, autoral technical-scientific research paper** submitted for peer-review at a prestigious symposium. In compliance with academic originality and copyright policies, the underlying source codes and step-by-step deployment blueprints are hidden from public view and will be officially released under an open-source license **ONLY** after the official publication and homologation of the scientific paper.  
 > 
